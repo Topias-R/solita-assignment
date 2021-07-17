@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  postgres:
+    image: 'postgres:13'
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    networks:
+      - database-network
+  next:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    ports:
+      - 3000:3000
+    networks:
+      - database-network
+networks:
+  database-network:
+    driver: bridge
+volumes:
+  database-data:

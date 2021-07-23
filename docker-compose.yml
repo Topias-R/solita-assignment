@@ -12,6 +12,8 @@ services:
   next:
     build: .
     restart: unless-stopped
+    depends_on:
+      - postgres
     env_file:
       - .env
     volumes:

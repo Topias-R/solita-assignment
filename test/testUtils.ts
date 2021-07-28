@@ -1,12 +1,9 @@
 import { render } from '@testing-library/react';
 import { ReactElement } from 'react';
+import { wrapTypes } from '../utils/wrapTypes';
 // import { ThemeProvider } from "my-ui-lib"
 // import { TranslationProvider } from "my-i18n-lib"
 // import defaultStrings from "i18n/en-x-default"
-
-const wrap = <T extends Array<any>, U>(fn: (...args: T) => U) => {
-  return (...args: T): U => fn(...args);
-};
 
 const Providers: React.FC = ({ children }) => {
   return children as ReactElement;
@@ -19,7 +16,7 @@ const Providers: React.FC = ({ children }) => {
   // )
 };
 
-const customRender = wrap((ui: ReactElement, options = {}) =>
+const customRender = wrapTypes((ui: ReactElement, options = {}) =>
   render(ui, { wrapper: Providers, ...options })
 );
 

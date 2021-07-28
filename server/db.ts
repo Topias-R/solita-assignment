@@ -1,29 +1,16 @@
-import { Sequelize } from 'sequelize';
-import { orderFactory, vaccinationFactory } from './models';
+import { createConnection } from 'typeorm';
+import { wrapTypes } from '../utils/wrapTypes';
 
-export const sequelize = new Sequelize(
-  'postgres',
-  'postgres',
-  process.env.POSTGRES_PASSWORD,
-  {
-    retry: {
-      match: [
-        /SequelizeConnectionError/,
-        /SequelizeConnectionRefusedError/,
-        /SequelizeHostNotFoundError/,
-        /SequelizeHostNotReachableError/,
-        /SequelizeInvalidConnectionError/,
-        /SequelizeConnectionTimedOutError/
-      ],
-      max: 34
-    },
+export const prepareDatabaseConnection = wrapTypes(() =>
+  createConnection({
+    type: 'postgres',
     host: 'postgres',
-    dialect: 'postgres'
-  }
+    username: 'postgres',
+    password: process.env.POSTGRES_PASSWORD,
+    logging: true,
+    entities: ['server/entity/*.ts'],
+    migrations: ['server/migration/*.ts'],
+    migrationsRun: true,
+    migrationsTransactionMode: 'each'
+  })
 );
-
-export const Order = orderFactory(sequelize);
-export const Vaccination = vaccinationFactory(sequelize);
-
-Order.hasMany(Vaccination, { foreignKey: 'sourceBottle' });
-Vaccination.belongsTo(Order, { foreignKey: 'sourceBottle' });

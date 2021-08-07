@@ -1,9 +1,10 @@
 {
   "name": "solita-assignment",
   "scripts": {
-    "dev": "nodemon",
-    "build": "next build && tsc --project tsconfig.server.json",
-    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "dev": "npm run migrate && next dev",
+    "start": "npm run migrate && next build && next start",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "migrate": "npm run typeorm migration:run -- -t each",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
@@ -28,7 +29,9 @@
     "pg": "^8.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "recharts": "^2.0.10",
     "reflect-metadata": "^0.1.13",
+    "superjson": "^1.7.5",
     "typeorm": "^0.2.34"
   },
   "devDependencies": {
@@ -42,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "babel-jest": "^27.0.2",
+    "babel-plugin-superjson-next": "^0.3.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "cross-env": "^7.0.3",
     "eslint": "^7.19.0",

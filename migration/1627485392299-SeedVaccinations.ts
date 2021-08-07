@@ -10,7 +10,7 @@ export class SeedVaccinations1627485392299 implements MigrationInterface {
 
     const rl = createInterface({
       input: createReadStream(
-        join(__dirname, '..', '..', 'seeds', 'vaccinations.source')
+        join(__dirname, '..', 'seeds', 'vaccinations.source')
       ),
       crlfDelay: Infinity
     });
@@ -37,7 +37,7 @@ export class SeedVaccinations1627485392299 implements MigrationInterface {
 
     const rl = createInterface({
       input: createReadStream(
-        join(__dirname, '..', '..', 'seeds', 'vaccinations.source')
+        join(__dirname, '..', 'seeds', 'vaccinations.source')
       ),
       crlfDelay: Infinity
     });

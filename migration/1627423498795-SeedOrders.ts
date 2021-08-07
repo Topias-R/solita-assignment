@@ -7,9 +7,9 @@ import { Order } from '../entity/Order';
 export class SeedOrders1627423498795 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const sourceFiles = [
-      join(__dirname, '..', '..', 'seeds', 'Antiqua.source'),
-      join(__dirname, '..', '..', 'seeds', 'SolarBuddhica.source'),
-      join(__dirname, '..', '..', 'seeds', 'Zerpfy.source')
+      join(__dirname, '..', 'seeds', 'Antiqua.source'),
+      join(__dirname, '..', 'seeds', 'SolarBuddhica.source'),
+      join(__dirname, '..', 'seeds', 'Zerpfy.source')
     ];
 
     const orders = [];
@@ -34,9 +34,9 @@ export class SeedOrders1627423498795 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const sourceFiles = [
-      join(__dirname, '..', '..', 'seeds', 'Antiqua.source'),
-      join(__dirname, '..', '..', 'seeds', 'SolarBuddhica.source'),
-      join(__dirname, '..', '..', 'seeds', 'Zerpfy.source')
+      join(__dirname, '..', 'seeds', 'Antiqua.source'),
+      join(__dirname, '..', 'seeds', 'SolarBuddhica.source'),
+      join(__dirname, '..', 'seeds', 'Zerpfy.source')
     ];
 
     const orderIds = [];

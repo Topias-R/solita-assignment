@@ -1,26 +1,42 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
 
-export interface ArrivedPerProducer {
-  totalOrders: number;
-  totalDoses: number;
-  vaccine: string;
+export type ArrivedPerProducer = {
   date: Date;
-}
+} & {
+  [key: string]: number;
+};
 
 export async function getArrivedPerProducer(): Promise<ArrivedPerProducer[]> {
   const connection = await prepareDatabaseConnection();
-  return connection
+
+  // Get distinct vaccines.
+  const vaccines: Record<'vaccine', string>[] = await connection
     .createQueryBuilder('Order', 'order')
-    .select('COUNT(*)', 'totalOrders')
-    .addSelect('SUM(injections)', 'totalDoses')
-    .addSelect('arrived::DATE', 'date')
-    .addSelect('vaccine')
-    .groupBy('date')
-    .addGroupBy('vaccine')
-    .orderBy('date')
-    .addOrderBy('vaccine')
+    .select('DISTINCT vaccine')
     .getRawMany();
+
+  const query = connection
+    .createQueryBuilder('Order', 'order')
+    .select('arrived::DATE', 'date')
+    .groupBy('date')
+    .orderBy('date');
+
+  // Sum orders and doses for distinct vaccines.
+  vaccines.forEach(({ vaccine }, idx) =>
+    query
+      .addSelect(
+        `SUM(CASE WHEN vaccine = :vaccine${idx} THEN 1 ELSE 0 END)::INT`,
+        `${vaccine}Orders`
+      )
+      .addSelect(
+        `SUM(CASE WHEN vaccine = :vaccine${idx} THEN injections ELSE 0 END)::INT`,
+        `${vaccine}Doses`
+      )
+      .setParameter(`vaccine${idx}`, vaccine)
+  );
+
+  return query.getRawMany();
 }
 
 export default async function (

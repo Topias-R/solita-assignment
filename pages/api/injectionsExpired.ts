@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
 
-export interface InjectionsExpired {
+export type InjectionsExpired = {
   injectionsExpired: number;
   date: Date;
-}
+};
 
 export async function getInjectionsExpired(): Promise<InjectionsExpired[]> {
   const connection = await prepareDatabaseConnection();

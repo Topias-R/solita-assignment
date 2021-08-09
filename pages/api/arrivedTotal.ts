@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
 
-export interface ArrivedTotal {
+export type ArrivedTotal = {
   totalOrders: number;
   totalDoses: number;
   date: Date;
-}
+};
 
 export async function getArrivedTotal(): Promise<ArrivedTotal[]> {
   const connection = await prepareDatabaseConnection();

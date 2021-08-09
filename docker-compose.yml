@@ -18,8 +18,8 @@ services:
       - .env
     volumes:
       - ./:/usr/src/app
-      - /usr/src/app/node_modules
-      - /usr/src/app/.next
+      - next-modules:/usr/src/app/node_modules
+      - next-build:/usr/src/app/.next
     ports:
       - 3000:3000
     networks:
@@ -28,4 +28,6 @@ networks:
   database-network:
     driver: bridge
 volumes:
+  next-modules:
+  next-build:
   database-data:

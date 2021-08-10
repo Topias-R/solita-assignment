@@ -1,22 +1,23 @@
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+  InferGetStaticPropsType
+} from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import DateLineChart from '../../components/DateLineChart';
 import { prettifyCamelCase } from '../../utils/prettifyCamelCase';
-import {
-  ArrivedPerProducer,
-  getArrivedPerProducer
-} from '../api/arrivedPerProducer';
-import { ArrivedTotal, getArrivedTotal } from '../api/arrivedTotal';
-import { BottlesExpired, getBottlesExpired } from '../api/bottlesExpired';
-import {
-  getInjectionsExpired,
-  InjectionsExpired
-} from '../api/injectionsExpired';
-import { getInjectionsUsed, InjectionsUsed } from '../api/injectionsUsed';
+import { getArrivedPerProducer } from '../api/arrivedPerProducer';
+import { getArrivedTotal } from '../api/arrivedTotal';
+import { getBottlesExpired } from '../api/bottlesExpired';
+import { getInjectionsExpired } from '../api/injectionsExpired';
+import { getInjectionsUsed } from '../api/injectionsUsed';
+import { categories } from '../../data/categories';
+import type { UnPromisify } from '../../utils/types/UnPromisify';
 
-export function Category({
+function Category({
   data
 }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
   const router = useRouter();
@@ -39,38 +40,46 @@ export function Category({
 
 export default Category;
 
-const categories = {
-  arrivedTotal: getArrivedTotal,
-  arrivedPerProducer: getArrivedPerProducer,
-  bottlesExpired: getBottlesExpired,
-  injectionsExpired: getInjectionsExpired,
-  injectionsUsed: getInjectionsUsed
-};
-
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: Object.keys(categories).map((category) => ({ params: { category } })),
+  paths: categories.map((category) => ({
+    params: { category }
+  })),
   fallback: false
 });
 
-interface Props {
-  data:
-    | ArrivedTotal[]
-    | ArrivedPerProducer[]
-    | BottlesExpired[]
-    | InjectionsExpired[]
-    | InjectionsUsed[];
-}
+type Categories = typeof categories[number];
 
 interface Params extends ParsedUrlQuery {
-  category: keyof typeof categories;
+  category: Categories;
 }
 
-export const getStaticProps: GetStaticProps<Props, Params> = async ({
+interface Props<T> {
+  data: T;
+}
+
+// Have to define return type in this manner or server side modules get bundled to browser.
+export const getStaticProps = async ({
   params
-}) => {
+}: GetStaticPropsContext<Params>): Promise<
+  GetStaticPropsResult<
+    Props<
+      UnPromisify<
+        ReturnType<typeof categoryGetters[keyof typeof categoryGetters]>
+      >
+    >
+  >
+> => {
+  const categoryGetters = {
+    arrivedTotal: getArrivedTotal,
+    arrivedPerProducer: getArrivedPerProducer,
+    bottlesExpired: getBottlesExpired,
+    injectionsExpired: getInjectionsExpired,
+    injectionsUsed: getInjectionsUsed
+  };
+
   try {
-    if (params?.category && Object.keys(categories).includes(params.category)) {
-      const data = await categories[params.category]();
+    if (params?.category && categories.includes(params.category)) {
+      const data = await categoryGetters[params.category]();
 
       return {
         props: {

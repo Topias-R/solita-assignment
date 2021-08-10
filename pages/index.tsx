@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   }
 });
 
-export function Index(): JSX.Element {
+function Index(): JSX.Element {
   const classes = useStyles();
 
   return (

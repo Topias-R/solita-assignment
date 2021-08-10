@@ -5,6 +5,7 @@ import TabNavigationBar from '../components/TabNavigationBar';
 import ViewPortContainer from '../components/ViewPortContainer';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { categories } from '../data/categories';
 
 function CustomApp({ Component, pageProps }: AppProps): JSX.Element {
   useEffect(() => {
@@ -22,15 +23,7 @@ function CustomApp({ Component, pageProps }: AppProps): JSX.Element {
       </Head>
       <CssBaseline />
       <ViewPortContainer>
-        <TabNavigationBar
-          tabs={[
-            'arrivedTotal',
-            'arrivedPerProducer',
-            'bottlesExpired',
-            'injectionsExpired',
-            'injectionsUsed'
-          ]}
-        />
+        <TabNavigationBar tabs={[...categories]} />
         <Component {...pageProps} key={router.asPath} />
       </ViewPortContainer>
     </>

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { ReactElement } from 'react';
-import { wrapTypes } from '../utils/wrapTypes';
+import { wrapTypes } from '../utils/types/wrapTypes';
 // import { ThemeProvider } from "my-ui-lib"
 // import { TranslationProvider } from "my-i18n-lib"
 // import defaultStrings from "i18n/en-x-default"

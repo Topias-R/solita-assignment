@@ -2,7 +2,7 @@ import { createReadStream } from 'fs';
 import { join } from 'path';
 import { createInterface } from 'readline';
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { Order } from '../entity/Order';
+import { Order } from '../entities/Order';
 
 export class SeedOrders1627423498795 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

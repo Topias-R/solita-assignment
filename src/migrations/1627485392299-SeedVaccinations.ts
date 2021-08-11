@@ -2,7 +2,7 @@ import { createReadStream } from 'fs';
 import { join } from 'path';
 import { createInterface } from 'readline';
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { Vaccination } from '../entity/Vaccination';
+import { Vaccination } from '../entities/Vaccination';
 
 export class SeedVaccinations1627485392299 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

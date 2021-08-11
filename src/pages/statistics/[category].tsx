@@ -16,6 +16,7 @@ import { getInjectionsExpired } from '../api/injectionsExpired';
 import { getInjectionsUsed } from '../api/injectionsUsed';
 import type { UnPromisify } from '../../utils/types/UnPromisify';
 import { getInjectionsAvailable } from '../api/injectionsAvailable';
+import { getInjectionsExpiringIn10D } from '../api/injectionsExpiringIn10D';
 
 function Category({
   data
@@ -52,7 +53,8 @@ export const categories = [
   'bottlesExpired',
   'injectionsExpired',
   'injectionsUsed',
-  'injectionsAvailable'
+  'injectionsAvailable',
+  'injectionsExpiringIn10D'
 ] as const;
 
 type Categories = typeof categories[number];
@@ -83,7 +85,8 @@ export const getStaticProps = async ({
     bottlesExpired: getBottlesExpired,
     injectionsExpired: getInjectionsExpired,
     injectionsUsed: getInjectionsUsed,
-    injectionsAvailable: getInjectionsAvailable
+    injectionsAvailable: getInjectionsAvailable,
+    injectionsExpiringIn10D: getInjectionsExpiringIn10D
   };
 
   try {

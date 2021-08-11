@@ -14,7 +14,7 @@ export async function getInjectionsExpired(): Promise<InjectionsExpired[]> {
       (SUM("order"."injections") - SUM("o"."injectionsUsed"))::INT AS "injectionsExpired",
       "arrived"::DATE + 30 AS "date"
     FROM "orders" "order"
-    INNER JOIN LATERAL (
+    LEFT JOIN LATERAL (
       SELECT COUNT(*) AS "injectionsUsed"
       FROM "vaccinations" "vaccination"
       WHERE "order"."id" = "vaccination"."sourceBottle"

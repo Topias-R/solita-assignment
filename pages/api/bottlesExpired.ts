@@ -1,20 +1,23 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
 
-export type BottlesExpired = {
+type BottlesExpired = {
   bottlesExpired: number;
   date: Date;
 };
 
 export async function getBottlesExpired(): Promise<BottlesExpired[]> {
   const connection = await prepareDatabaseConnection();
-  return connection
+
+  const result = await connection
     .createQueryBuilder('Order', 'order')
     .select('COUNT(*)::INT', 'bottlesExpired')
     .addSelect('arrived::DATE + 30', 'date')
     .groupBy('date')
     .orderBy('date')
     .getRawMany();
+
+  return result.slice(0, result.length - 30);
 }
 
 export default async function (

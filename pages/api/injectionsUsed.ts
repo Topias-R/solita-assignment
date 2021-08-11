@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
 
-export type InjectionsUsed = {
+type InjectionsUsed = {
   injectionsUsed: number;
   date: Date;
 };

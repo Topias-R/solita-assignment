@@ -14,8 +14,8 @@ import { getArrivedTotal } from '../api/arrivedTotal';
 import { getBottlesExpired } from '../api/bottlesExpired';
 import { getInjectionsExpired } from '../api/injectionsExpired';
 import { getInjectionsUsed } from '../api/injectionsUsed';
-import { categories } from '../../data/categories';
 import type { UnPromisify } from '../../utils/types/UnPromisify';
+import { getInjectionsAvailable } from '../api/injectionsAvailable';
 
 function Category({
   data
@@ -32,7 +32,6 @@ function Category({
           Statistics
         </title>
       </Head>
-
       <DateLineChart data={data}></DateLineChart>
     </>
   );
@@ -46,6 +45,15 @@ export const getStaticPaths: GetStaticPaths = async () => ({
   })),
   fallback: false
 });
+
+export const categories = [
+  'arrivedTotal',
+  'arrivedPerProducer',
+  'bottlesExpired',
+  'injectionsExpired',
+  'injectionsUsed',
+  'injectionsAvailable'
+] as const;
 
 type Categories = typeof categories[number];
 
@@ -74,7 +82,8 @@ export const getStaticProps = async ({
     arrivedPerProducer: getArrivedPerProducer,
     bottlesExpired: getBottlesExpired,
     injectionsExpired: getInjectionsExpired,
-    injectionsUsed: getInjectionsUsed
+    injectionsUsed: getInjectionsUsed,
+    injectionsAvailable: getInjectionsAvailable
   };
 
   try {

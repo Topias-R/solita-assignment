@@ -5,7 +5,7 @@ import TabNavigationBar from '../components/TabNavigationBar';
 import ViewPortContainer from '../components/ViewPortContainer';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { categories } from '../data/categories';
+import { categories } from './statistics/[category]';
 
 function CustomApp({ Component, pageProps }: AppProps): JSX.Element {
   useEffect(() => {

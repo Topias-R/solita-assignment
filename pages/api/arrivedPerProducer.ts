@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
 
-export type ArrivedPerProducer = {
+type ArrivedPerProducer = {
   date: Date;
 } & {
   [key: string]: number;
@@ -27,11 +27,11 @@ export async function getArrivedPerProducer(): Promise<ArrivedPerProducer[]> {
     query
       .addSelect(
         `SUM(CASE WHEN vaccine = :vaccine${idx} THEN 1 ELSE 0 END)::INT`,
-        `${vaccine}Orders`
+        `${vaccine}OrdersArrived`
       )
       .addSelect(
         `SUM(CASE WHEN vaccine = :vaccine${idx} THEN injections ELSE 0 END)::INT`,
-        `${vaccine}Doses`
+        `${vaccine}InjectionsArrived`
       )
       .setParameter(`vaccine${idx}`, vaccine)
   );

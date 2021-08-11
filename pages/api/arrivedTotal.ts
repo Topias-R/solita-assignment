@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
 
-export type ArrivedTotal = {
-  totalOrders: number;
-  totalDoses: number;
+type ArrivedTotal = {
+  ordersArrived: number;
+  injectionsArrived: number;
   date: Date;
 };
 
@@ -11,8 +11,8 @@ export async function getArrivedTotal(): Promise<ArrivedTotal[]> {
   const connection = await prepareDatabaseConnection();
   return connection
     .createQueryBuilder('Order', 'order')
-    .select('COUNT(*)::INT', 'totalOrders')
-    .addSelect('SUM(injections)::INT', 'totalDoses')
+    .select('COUNT(*)::INT', 'ordersArrived')
+    .addSelect('SUM(injections)::INT', 'injectionsArrived')
     .addSelect('arrived::DATE', 'date')
     .groupBy('date')
     .orderBy('date')

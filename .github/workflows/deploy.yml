@@ -1,0 +1,32 @@
+name: Export Next and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_deploy:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_BASE_PATH: /solita-assignment
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Export Next with containers
+        run: docker-compose -f "docker-compose.export.yml" up --build --exit-code-from next
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.export.yml" down
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: out
+          force_orphan: true

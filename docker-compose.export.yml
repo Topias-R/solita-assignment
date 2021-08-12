@@ -5,30 +5,24 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    volumes:
-      - database-data:/var/lib/postgresql/data
     networks:
       - database-network
   next:
-    container_name: next_dev
-    build: ./
-    restart: unless-stopped
+    container_name: next_export
+    build:
+      context: ./
+      dockerfile: Dockerfile.export
     depends_on:
       - postgres
     env_file:
       - .env
+    environment:
+      - WAIT_HOSTS=postgres:5432
+      - NEXT_PUBLIC_BASE_PATH
     volumes:
-      - ./:/usr/src/app
-      - next-modules:/usr/src/app/node_modules
-      - next-build:/usr/src/app/.next
-    ports:
-      - 3000:3000
+      - ./out:/usr/src/app/out
     networks:
       - database-network
 networks:
   database-network:
     driver: bridge
-volumes:
-  next-modules:
-  next-build:
-  database-data:

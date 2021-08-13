@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { CssBaseline } from '@material-ui/core';
 import TabNavigationBar from '../components/TabNavigationBar';

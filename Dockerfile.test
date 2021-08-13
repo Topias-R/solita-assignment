@@ -1,0 +1,20 @@
+FROM cypress/base:14
+
+WORKDIR /usr/src/app
+
+ENV NODE_ENV test
+
+COPY package*.json ./
+
+RUN npm ci --also=dev
+
+COPY ./ ./
+
+EXPOSE 3000
+
+CMD npx wait-on tcp:postgres:5432 && \
+    npm run migrate && \
+    npm run build && \
+    npm run start & \
+    npx wait-on http://localhost:3000 && \
+    npm run cypress:run

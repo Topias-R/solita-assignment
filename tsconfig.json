@@ -17,6 +17,6 @@
     "experimentalDecorators": true,
     "downlevelIteration": true
   },
-  "exclude": ["node_modules", ".next", "out"],
+  "exclude": ["node_modules", ".next", "out", "src/tests"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
 }

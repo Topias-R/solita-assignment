@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   postgres:
+    container_name: postgres-dev
     image: 'postgres:13'
     restart: unless-stopped
     env_file:
@@ -10,7 +11,7 @@ services:
     networks:
       - database-network
   next:
-    container_name: next_dev
+    container_name: next-dev
     build: ./
     restart: unless-stopped
     depends_on:

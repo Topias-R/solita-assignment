@@ -7,7 +7,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_deploy:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        run: docker-compose -f "docker-compose.test.yml" up --build --exit-code-from next
+
+  export_deploy:
+    needs: test
     timeout-minutes: 10
     runs-on: ubuntu-latest
     env:
@@ -17,12 +29,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Export Next with containers
+      - name: Export Next
         run: docker-compose -f "docker-compose.export.yml" up --build --exit-code-from next
-
-      - name: Stop containers
-        if: always()
-        run: docker-compose -f "docker-compose.export.yml" down
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

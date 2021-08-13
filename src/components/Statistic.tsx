@@ -1,3 +1,4 @@
+import React from 'react';
 import { GetStaticProps } from 'next';
 import { DateLineChart, DateLineChartProps } from './DateLineChart';
 import Head from 'next/head';

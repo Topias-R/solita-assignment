@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ResponsiveContainer,
   LineChart,
@@ -53,7 +54,7 @@ export function DateLineChart({ data }: DateLineChartProps): JSX.Element {
         <XAxis dataKey="date" />
         <YAxis />
         <Tooltip
-          formatter={(value: any, name: string) => [
+          formatter={(value: unknown, name: string) => [
             value,
             prettifyCamelCase(name)
           ]}

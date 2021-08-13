@@ -1,7 +1,6 @@
 FROM node:14-alpine
 
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
-RUN chmod +x /wait
+RUN apk add --no-cache libc6-compat
 
 ENV NODE_ENV production
 
@@ -13,4 +12,4 @@ RUN npm ci --also=dev
 
 COPY ./ ./
 
-CMD /wait && npm run export
+CMD npx wait-on tcp:postgres:5432 && npm run migrate && npm run export

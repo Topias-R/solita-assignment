@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres:
-    container_name: postgres-export
+    container_name: postgres-test
     image: 'postgres:13'
     restart: unless-stopped
     env_file:
@@ -9,18 +9,16 @@ services:
     networks:
       - database-network
   next:
-    container_name: next-export
+    container_name: next-test
     build:
       context: ./
-      dockerfile: Dockerfile.export
+      dockerfile: Dockerfile.test
     depends_on:
       - postgres
     env_file:
       - .env
-    environment:
-      - NEXT_PUBLIC_BASE_PATH
-    volumes:
-      - ./out:/usr/src/app/out
+    expose:
+      - '3000'
     networks:
       - database-network
 networks:

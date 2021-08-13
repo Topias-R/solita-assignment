@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
   useViewPortDimensions,

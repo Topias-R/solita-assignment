@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Paper from '@material-ui/core/Paper';
-import prettifyCamelCase from '../utils/prettifyCamelCase';
+import { useMediaQuery } from '@material-ui/core';
 
 function a11yProps(index: number) {
   return {
@@ -30,14 +30,14 @@ function LinkTab({ href, label, scroll, ...other }: LinkTabProps) {
   );
 }
 
-type tabs = string[];
+type tabs = [string, string][];
 
 function determineActiveTab(
   tabs: tabs,
   current: string | string[] | undefined
 ) {
   if (current === undefined) return false;
-  const index = tabs.findIndex((tab) => tab === current);
+  const index = tabs.findIndex((tab) => tab[1] === current);
   return index >= 0 ? index : false;
 }
 
@@ -48,30 +48,32 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface TabNavigationBarProps {
-  tabs: tabs;
+  tabs: [string, string][];
 }
 
 export function TabNavigationBar({ tabs }: TabNavigationBarProps): JSX.Element {
   const classes = useStyles();
+  const matches = useMediaQuery('(max-width: 1200px)');
   const router = useRouter();
 
   return (
     <AppBar position="static">
       <Paper square>
         <Tabs
-          variant="scrollable"
+          centered
+          variant={matches ? 'scrollable' : 'fullWidth'}
           scrollButtons="auto"
           indicatorColor="primary"
           textColor="primary"
-          value={determineActiveTab(tabs, router.query.category)}
+          value={determineActiveTab(tabs, router.pathname)}
           aria-label="navigation tab"
         >
           {tabs.map((tab, idx) => (
             <LinkTab
               className={classes.tab}
-              key={tab}
-              label={prettifyCamelCase(tab)}
-              href={`/statistics/${tab}`}
+              key={tab[1]}
+              label={tab[0]}
+              href={tab[1]}
               {...a11yProps(idx)}
             />
           ))}

@@ -1,5 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
+import { prepareDatabaseConnection } from '../utils/prepareDatabaseConnection';
 
 type InjectionsUsed = {
   injectionsUsed: number;
@@ -15,11 +14,4 @@ export async function getInjectionsUsed(): Promise<InjectionsUsed[]> {
     .groupBy('date')
     .orderBy('date')
     .getRawMany();
-}
-
-export default async function (
-  _req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
-  return res.status(200).json(await getInjectionsUsed());
 }

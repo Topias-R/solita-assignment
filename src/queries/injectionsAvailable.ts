@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { getArrivedTotal } from './arrivedTotal';
 import { getInjectionsExpired } from './injectionsExpired';
 import { getInjectionsUsed } from './injectionsUsed';
@@ -56,11 +55,4 @@ export async function getInjectionsAvailable(): Promise<InjectionsAvailable[]> {
   );
 
   return result;
-}
-
-export default async function (
-  _req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
-  return res.status(200).json(await getInjectionsAvailable());
 }

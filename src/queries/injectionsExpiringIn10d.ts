@@ -1,13 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
+import { prepareDatabaseConnection } from '../utils/prepareDatabaseConnection';
 
-type InjectionsExpiringIn10D = {
+type InjectionsExpiringIn10d = {
   injectionsExpiringIn10Days: number;
   date: Date;
 };
 
-export async function getInjectionsExpiringIn10D(): Promise<
-  InjectionsExpiringIn10D[]
+export async function getInjectionsExpiringIn10d(): Promise<
+  InjectionsExpiringIn10d[]
 > {
   const connection = await prepareDatabaseConnection();
   // Not entirely sure if this returns the correct result.
@@ -39,11 +38,4 @@ export async function getInjectionsExpiringIn10D(): Promise<
     ORDER BY date ASC
   `
   );
-}
-
-export default async function (
-  _req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
-  return res.status(200).json(await getInjectionsExpiringIn10D());
 }

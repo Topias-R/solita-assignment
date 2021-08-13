@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import { prettifyCamelCase } from '../utils/prettifyCamelCase';
 
-interface DateLineChartProps {
+export interface DateLineChartProps {
   data: ({ date: Date } & { [key: string]: number | Date })[];
 }
 
@@ -63,5 +63,3 @@ export function DateLineChart({ data }: DateLineChartProps): JSX.Element {
     </ResponsiveContainer>
   );
 }
-
-export default DateLineChart;

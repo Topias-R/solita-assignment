@@ -1,5 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
+import { prepareDatabaseConnection } from '../utils/prepareDatabaseConnection';
 
 type InjectionsExpired = {
   injectionsExpired: number;
@@ -25,11 +24,4 @@ export async function getInjectionsExpired(): Promise<InjectionsExpired[]> {
   );
 
   return result.slice(0, result.length - 30);
-}
-
-export default async function (
-  _req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
-  return res.status(200).json(await getInjectionsExpired());
 }

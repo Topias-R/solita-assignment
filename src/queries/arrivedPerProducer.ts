@@ -1,5 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prepareDatabaseConnection } from '../../utils/prepareDatabaseConnection';
+import { prepareDatabaseConnection } from '../utils/prepareDatabaseConnection';
 
 type ArrivedPerProducer = {
   date: Date;
@@ -37,11 +36,4 @@ export async function getArrivedPerProducer(): Promise<ArrivedPerProducer[]> {
   );
 
   return query.getRawMany();
-}
-
-export default async function (
-  _req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
-  return res.status(200).json(await getArrivedPerProducer());
 }

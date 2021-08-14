@@ -1,3 +1,5 @@
+export {};
+
 const pages = [
   '/statistics/arrived-total',
   '/statistics/arrived-per-producer',
@@ -10,6 +12,8 @@ const pages = [
 
 describe('The Statistics Pages', () => {
   it('successfully load', () => {
-    pages.forEach((page) => cy.visit(page));
+    pages.forEach((page) => {
+      cy.visit(page);
+    });
   });
 });

@@ -47,4 +47,12 @@ describe('TabNavigationBar', () => {
         .should('equal', path);
     });
   });
+
+  it('does not highlight when not in one of the tabs', () => {
+    unmount();
+    mount(
+      <TabNavigationBar pathname={'/off-path'} tabs={tabs}></TabNavigationBar>
+    );
+    cy.get('[aria-selected=true]', { timeout: 0 }).should('not.exist');
+  });
 });

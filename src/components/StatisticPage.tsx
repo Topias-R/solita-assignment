@@ -2,7 +2,6 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 import { DateLineChart, DateLineChartProps } from './DateLineChart';
 import Head from 'next/head';
-import { ResponsiveContainer } from 'recharts';
 
 interface StatisticPageProps {
   title: string;
@@ -18,22 +17,20 @@ export function StatisticPage({
       <Head>
         <title>{title} Statistics</title>
       </Head>
-      <ResponsiveContainer>
-        <DateLineChart
-          margin={{ top: 34, right: 34, bottom: 34, left: 0 }}
-          strokes={[
-            'navy',
-            'red',
-            'purple',
-            'blue',
-            'fuchsia',
-            'darkorange',
-            'green',
-            'maroon'
-          ]}
-          data={data}
-        ></DateLineChart>
-      </ResponsiveContainer>
+      <DateLineChart
+        margin={{ top: 34, right: 34, bottom: 68, left: -17 }}
+        strokes={[
+          'navy',
+          'red',
+          'purple',
+          'blue',
+          'fuchsia',
+          'darkorange',
+          'green',
+          'maroon'
+        ]}
+        data={data}
+      ></DateLineChart>
     </>
   );
 }

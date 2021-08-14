@@ -22,10 +22,7 @@ const data = [
 ];
 
 const component = (
-  <div
-    data-cy="statistic-container"
-    style={{ width: '100vw', height: '100vh' }}
-  >
+  <div style={{ width: '100vw', height: '100vh' }}>
     <StatisticPage title={'Test'} data={data}></StatisticPage>
   </div>
 );

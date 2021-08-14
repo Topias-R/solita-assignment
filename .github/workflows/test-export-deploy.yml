@@ -1,4 +1,4 @@
-name: Export Next and Deploy to GitHub Pages
+name: Test and Export Next then Deploy to GitHub Pages
 
 on:
   push:

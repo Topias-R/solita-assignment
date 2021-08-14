@@ -1,10 +1,10 @@
-import { Statistic } from '../../components/Statistic';
-import { getStatisticStaticProps } from '../../components/Statistic';
+import { StatisticPage } from '../../components/StatisticPage';
+import { getStatisticPageStaticProps } from '../../components/StatisticPage';
 import { getArrivedTotal } from '../../queries/arrivedTotal';
 
-export default Statistic;
+export default StatisticPage;
 
-export const getStaticProps = getStatisticStaticProps(
+export const getStaticProps = getStatisticPageStaticProps(
   'Arrived Total',
   getArrivedTotal
 );

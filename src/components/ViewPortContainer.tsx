@@ -26,5 +26,3 @@ export function ViewPortContainer({
   const classes = useStyles(dimensions);
   return <div className={classes.root}>{children}</div>;
 }
-
-export default ViewPortContainer;

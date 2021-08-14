@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { CssBaseline } from '@material-ui/core';
-import TabNavigationBar from '../components/TabNavigationBar';
-import ViewPortContainer from '../components/ViewPortContainer';
+import { TabNavigationBar } from '../components/TabNavigationBar';
+import { ViewPortContainer } from '../components/ViewPortContainer';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
@@ -23,6 +23,7 @@ function CustomApp({ Component, pageProps }: AppProps): JSX.Element {
       <CssBaseline />
       <ViewPortContainer>
         <TabNavigationBar
+          pathname={router.pathname}
           tabs={[
             ['Arrived Total', '/statistics/arrived-total'],
             ['Arrived Per Producer', '/statistics/arrived-per-producer'],

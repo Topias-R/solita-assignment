@@ -1,10 +1,10 @@
-import { Statistic } from '../../components/Statistic';
-import { getStatisticStaticProps } from '../../components/Statistic';
+import { StatisticPage } from '../../components/StatisticPage';
+import { getStatisticPageStaticProps } from '../../components/StatisticPage';
 import { getInjectionsAvailable } from '../../queries/injectionsAvailable';
 
-export default Statistic;
+export default StatisticPage;
 
-export const getStaticProps = getStatisticStaticProps(
+export const getStaticProps = getStatisticPageStaticProps(
   'Injections Expired',
   getInjectionsAvailable
 );

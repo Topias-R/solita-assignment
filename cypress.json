@@ -3,8 +3,12 @@
   "integrationFolder": "src/tests/integration",
   "downloadsFolder": "src/tests/downloads",
   "fixturesFolder": false,
-  "pluginsFile": false,
+  "pluginsFile": "src/tests/plugins/index.ts",
   "screenshotsFolder": "src/tests/screenshots",
-  "supportFile": false,
-  "videosFolder": "src/tests/videos"
+  "supportFile": "src/tests/support/index.ts",
+  "videosFolder": "src/tests/videos",
+  "component": {
+    "componentFolder": "src/components",
+    "testFiles": "**/*.spec.{ts,tsx}"
+  }
 }

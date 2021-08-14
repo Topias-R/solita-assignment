@@ -17,4 +17,4 @@ CMD npx wait-on tcp:postgres:5432 && \
     npm run build && \
     npm run start & \
     npx wait-on http://localhost:3000 && \
-    npm run cypress:run
+    npm run test

@@ -1,10 +1,10 @@
-import { Statistic } from '../../components/Statistic';
-import { getStatisticStaticProps } from '../../components/Statistic';
+import { StatisticPage } from '../../components/StatisticPage';
+import { getStatisticPageStaticProps } from '../../components/StatisticPage';
 import { getInjectionsExpiringIn10d } from '../../queries//injectionsExpiringIn10d';
 
-export default Statistic;
+export default StatisticPage;
 
-export const getStaticProps = getStatisticStaticProps(
+export const getStaticProps = getStatisticPageStaticProps(
   'Injections Expiring in 10D',
   getInjectionsExpiringIn10d
 );

@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Paper from '@material-ui/core/Paper';
 import { useMediaQuery } from '@material-ui/core';
 
@@ -49,23 +48,26 @@ const useStyles = makeStyles(() => ({
 
 interface TabNavigationBarProps {
   tabs: [string, string][];
+  pathname: string;
 }
 
-export function TabNavigationBar({ tabs }: TabNavigationBarProps): JSX.Element {
+export function TabNavigationBar({
+  tabs,
+  pathname
+}: TabNavigationBarProps): JSX.Element {
   const classes = useStyles();
   const matches = useMediaQuery('(max-width: 1200px)');
-  const router = useRouter();
 
   return (
     <AppBar position="static">
       <Paper square>
         <Tabs
-          centered
+          centered={!matches}
           variant={matches ? 'scrollable' : 'fullWidth'}
           scrollButtons="auto"
           indicatorColor="primary"
           textColor="primary"
-          value={determineActiveTab(tabs, router.pathname)}
+          value={determineActiveTab(tabs, pathname)}
           aria-label="navigation tab"
         >
           {tabs.map((tab, idx) => (
@@ -82,5 +84,3 @@ export function TabNavigationBar({ tabs }: TabNavigationBarProps): JSX.Element {
     </AppBar>
   );
 }
-
-export default TabNavigationBar;

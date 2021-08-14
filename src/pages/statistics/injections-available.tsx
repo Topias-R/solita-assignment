@@ -6,5 +6,6 @@ export default StatisticPage;
 
 export const getStaticProps = getStatisticPageStaticProps(
   'Injections Expired',
+  '/api/statistics/injections-available',
   getInjectionsAvailable
 );

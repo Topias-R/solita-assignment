@@ -15,8 +15,8 @@ describe('Queries', () => {
     urls.forEach((url) => {
       cy.request(url).then((res) => {
         expect(
-          res.body.every(
-            ({ date, ...rest }: { date: string }) =>
+          res.body.json.every(
+            ({ date, ...rest }) =>
               typeof date === 'string' &&
               Object.values(rest).every((val) => typeof val === 'number')
           )

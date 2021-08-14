@@ -6,5 +6,6 @@ export default StatisticPage;
 
 export const getStaticProps = getStatisticPageStaticProps(
   'Arrived Per Producer',
+  '/api/statistics/arrived-per-producer',
   getArrivedPerProducer
 );

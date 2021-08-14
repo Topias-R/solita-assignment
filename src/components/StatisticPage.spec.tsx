@@ -23,7 +23,7 @@ const data = [
 
 const component = (
   <div style={{ width: '100vw', height: '100vh' }}>
-    <StatisticPage title={'Test'} data={data}></StatisticPage>
+    <StatisticPage title={'Test'} api={''} data={data}></StatisticPage>
   </div>
 );
 

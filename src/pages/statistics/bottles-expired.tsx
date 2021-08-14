@@ -6,5 +6,6 @@ export default StatisticPage;
 
 export const getStaticProps = getStatisticPageStaticProps(
   'Bottles Expired',
+  '/api/statistics/bottles-expired',
   getBottlesExpired
 );

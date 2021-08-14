@@ -24,6 +24,7 @@ export function DateLineChart({
   width,
   height
 }: DateLineChartProps): JSX.Element {
+  // Convert dates to form 01/01
   const formattedData = data.map(({ date, ...rest }) => ({
     ...rest,
     date: date.toLocaleDateString(undefined, {

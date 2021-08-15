@@ -1,22 +1,22 @@
 version: '3.8'
 services:
-  postgres-export:
+  postgres:
     image: 'postgres:13'
     restart: unless-stopped
     env_file:
       - .env
     networks:
       - database-network
-  next-export:
+  next:
     build:
       context: ./
       dockerfile: Dockerfile.export
     depends_on:
-      - postgres-export
+      - postgres
     env_file:
       - .env
     environment:
-      - NEXT_EXPORT_MODE=1
+      - NEXT_PUBLIC_EXPORT_MODE=1
       - NEXT_PUBLIC_BASE_PATH
     volumes:
       - ./out:/usr/src/app/out

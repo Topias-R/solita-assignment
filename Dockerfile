@@ -2,6 +2,8 @@ FROM node:14-alpine
 
 RUN apk add --no-cache libc6-compat
 
+ENV NODE_ENV development
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./

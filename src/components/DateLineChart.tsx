@@ -19,10 +19,8 @@ export interface DateLineChartProps extends CategoricalChartProps {
 
 export function DateLineChart({
   data,
-  margin,
   strokes,
-  width,
-  height
+  ...rest
 }: DateLineChartProps): JSX.Element {
   // Convert dates to form 01/01
   const formattedData = data.map(({ date, ...rest }) => ({
@@ -36,12 +34,7 @@ export function DateLineChart({
 
   return (
     <ResponsiveContainer>
-      <LineChart
-        data={formattedData}
-        margin={margin}
-        width={width}
-        height={height}
-      >
+      <LineChart data={formattedData} {...rest}>
         {lines.map((line, idx) => (
           <Line
             type="monotone"
@@ -59,7 +52,13 @@ export function DateLineChart({
             prettifyCamelCase(name)
           ]}
         />
-        <Legend formatter={prettifyCamelCase} />
+        <Legend
+          wrapperStyle={{
+            right: -(rest?.margin?.right ?? 0),
+            left: -(rest?.margin?.left ?? 0)
+          }}
+          formatter={prettifyCamelCase}
+        />
       </LineChart>
     </ResponsiveContainer>
   );

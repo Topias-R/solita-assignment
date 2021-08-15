@@ -1,11 +1,7 @@
 import React from 'react';
 import useSWR from 'swr';
 import superjson from 'superjson';
-import {
-  GetStaticPaths,
-  GetStaticPropsContext,
-  GetStaticPropsResult
-} from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   DateLineChart,
   DateLineChartProps
@@ -98,20 +94,24 @@ export const pages = [
   'injections-used'
 ] as const;
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: [], // Don't render anything at build time.
-  fallback: true
-});
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Only prerender at build if we are exporting.
+  const isExport = process.env.NEXT_PUBLIC_EXPORT_MODE === '1';
+  return {
+    paths: isExport
+      ? [...pages].map((page) => ({ params: { statistic: page } }))
+      : [],
+    fallback: !isExport
+  };
+};
 
 interface Params extends ParsedUrlQuery {
   statistic: typeof pages[number];
 }
 
-export const getStaticProps = async ({
+export const getStaticProps: GetStaticProps<StatisticProps, Params> = async ({
   params
-}: GetStaticPropsContext<Params>): Promise<
-  GetStaticPropsResult<StatisticProps>
-> => {
+}) => {
   const pageProps = {
     'arrived-per-producer': {
       title: 'Arrived Per Producer',

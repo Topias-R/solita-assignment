@@ -23,7 +23,7 @@ function CustomApp({ Component, pageProps }: AppProps): JSX.Element {
       <CssBaseline />
       <ViewPortContainer>
         <TabNavigationBar
-          pathname={router.pathname}
+          pathname={router.asPath}
           tabs={[
             ['Arrived Total', '/statistics/arrived-total'],
             ['Arrived Per Producer', '/statistics/arrived-per-producer'],

@@ -24,9 +24,9 @@ export class Vaccination {
   @Column('timestamptz')
   vaccinationDate!: Date;
 
-  @CreateDateColumn({ select: false })
+  @CreateDateColumn({ type: 'timestamptz', select: false })
   createdAt!: Date;
 
-  @UpdateDateColumn({ select: false })
+  @UpdateDateColumn({ type: 'timestamptz', select: false })
   updatedAt!: Date;
 }

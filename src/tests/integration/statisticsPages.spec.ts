@@ -14,6 +14,7 @@ describe('The Statistics Pages', () => {
   it('successfully load', () => {
     pages.forEach((page) => {
       cy.visit(page);
+      cy.get('.recharts-surface');
     });
   });
 });
